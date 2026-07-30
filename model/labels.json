@@ -1,0 +1,13 @@
+{
+  "class_names": [
+    "candidiasis",
+    "non-disease",
+    "other_disease",
+    "tinea"
+  ],
+  "img_size": [
+    224,
+    224
+  ],
+  "confidence_threshold": 0.85
+}
