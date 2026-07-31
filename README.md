@@ -1,6 +1,6 @@
 # Tinea vs Candidiasis Classifier
 
-This app using AI(Artificial intelligence) to classify skin images of diseases as either **Tinea** or **Candidiasis**. It was develop using Tensorflow/Keras and deployed using streamlit
+This app using AI(Artificial intelligence) to classify skin images of diseases as either *Tinea* or *Candidiasis*. It was develop using Tensorflow/Keras and deployed using streamlit
 ---
 
 ## Features
