@@ -21,10 +21,10 @@ MODEL_DIR = "model"
 IMG_SIZE = (224, 224)
 BATCH_SIZE = 16
 
-EPOCHS_HEAD = 12
-EPOCHS_FINE_TUNE = 8
+EPOCHS_HEAD = 10
+EPOCHS_FINE_TUNE = 6
 
-CONFIDENCE_THRESHOLD = 0.85
+CONFIDENCE_THRESHOLD = 0.75
 SEED = 42
 
 os.makedirs(MODEL_DIR, exist_ok=True)
@@ -124,7 +124,7 @@ model = models.Model(inputs, outputs)
 # ==========================================================
 
 checkpoint = tf.keras.callbacks.ModelCheckpoint(
-    filepath=os.path.join(MODEL_DIR, "skin_classifier.keras"),
+    filepath=os.path.join(MODEL_DIR, "tinea_candidiasis_skin_classifier.keras"),
     monitor="val_accuracy",
     save_best_only=True,
 )
@@ -232,10 +232,10 @@ plt.legend()
 
 plt.tight_layout()
 
-plt.savefig(
-    os.path.join(MODEL_DIR,"training_history.png"),
-    dpi=150
-)
+# plt.savefig(
+#     os.path.join(MODEL_DIR,"training_history.png"),
+#     dpi=150
+# )
 
 plt.close()
 
@@ -287,10 +287,10 @@ plt.ylabel("Actual")
 
 plt.tight_layout()
 
-plt.savefig(
-    os.path.join(MODEL_DIR, "confusion_matrix.png"),
-    dpi=150,
-)
+# plt.savefig(
+#     os.path.join(MODEL_DIR, "confusion_matrix.png"),
+#     dpi=150,
+# )
 
 plt.close()
 
@@ -298,18 +298,10 @@ report = classification_report(y_true, y_pred, target_names=class_names)
 
 print(report)
 
-with open(
-    os.path.join(MODEL_DIR, "classification_report.txt"),
-    "w",
-) as f:
-    f.write(report)
+# with open(
+#     os.path.join(MODEL_DIR, "classification_report.txt"),
+#     "w",
+# ) as f:
+#     f.write(report)
 
 print("\nTraining Complete!")
-
-print("Saved files:")
-
-print("skin_classifier.keras")
-print("labels.json")
-print("training_history.png")
-print("confusion_matrix.png")
-print("classification_report.txt")

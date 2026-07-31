@@ -7,7 +7,7 @@ import tensorflow as tf
 from PIL import Image
 from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 
-MODEL_PATH = "model/skin_classifier.keras"
+MODEL_PATH = "model/tinea_candidiasis_skin_classifier.keras"
 LABELS_PATH = "model/labels.json"
 BLANK_IMAGE_STD_CUTOFF = 5.0
 
@@ -99,7 +99,7 @@ if uploaded_file:
 
     if confidence < threshold:
         st.warning(
-            "The model is not confident enough to classify this image."
+            "Uncertain."
         )
 
     elif label == "tinea":
@@ -107,16 +107,6 @@ if uploaded_file:
 
     elif label == "candidiasis":
         st.success("Candidiasis detected")
-
-    elif label == "other_disease":
-        st.error(
-            "This disease is neither Tinea nor Candidiasis."
-        )
-
-    elif label == "non-disease":
-        st.error(
-            "This isn't an image of a skin disease."
-        )
 
     st.caption(
         "This is a student mini-project demo, not a medical diagnostic tool. "
