@@ -1,20 +1,14 @@
 # Tinea vs Candidiasis Classifier
 
-A deep learning-powered web application developed using **TensorFlow**, **MobileNetV2**, and **Streamlit** to classify skin lesion images as either **Tinea (Ringworm)** or **Candidiasis**.
-
-This project was developed as part of the **GET 324 Laboratory Exercise 10 (Mini Project)** on AI model development and cloud deployment.
-
+This app using AI(Artificial intelligence) to classify skin images of diseases as either **Tinea** or **Candidiasis**. It was develop using Tensorflow/Keras and deployed using streamlit
 ---
 
 ## Features
 
 * Binary image classification
-* MobileNetV2 transfer learning
-* Streamlit web interface
+* Predict Tinea or Candidiasis
+* Shows Confidence score
 * Confidence-based prediction rejection
-* Automatic model loading
-* Google Colab compatible
-* Ready for cloud deployment
 
 ---
 
@@ -45,9 +39,6 @@ tinea_candidiasis_project/
 ├── model/
 │   ├── skin_classifier.keras
 │   ├── labels.json
-│   ├── training_history.png
-│   ├── confusion_matrix.png
-│   └── classification_report.txt
 │
 └── data/
     ├── tinea/
@@ -75,13 +66,13 @@ For best performance, use a balanced dataset with sufficient images for each cla
 Clone the repository:
 
 ```bash
-git clone https://github.com/<your-username>/<repository-name>.git
+git clone https://github.com/Anie22/tinea_candidiasis/
 ```
 
 Navigate into the project directory:
 
 ```bash
-cd tinea_candidiasis_project
+cd tinea_candidiasis
 ```
 
 Create a virtual environment:
@@ -124,9 +115,6 @@ After training, the following files will be generated inside the `model/` direct
 
 * skin_classifier.keras
 * labels.json
-* training_history.png
-* confusion_matrix.png
-* classification_report.txt
 
 ---
 
@@ -185,22 +173,12 @@ Include:
 * requirements.txt
 * .gitignore
 * model/
-
-Do **not** upload:
-
-* data/
-* venv/
-* **pycache**/
-
 ---
 
 # Future Improvements
 
 * Increase the dataset size for improved accuracy.
 * Support additional skin disease classes.
-* Integrate Grad-CAM for model interpretability.
-* Improve image quality assessment before prediction.
-* Deploy a mobile-friendly version.
 
 ---
 
