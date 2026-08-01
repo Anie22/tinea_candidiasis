@@ -232,10 +232,10 @@ plt.legend()
 
 plt.tight_layout()
 
-# plt.savefig(
-#     os.path.join(MODEL_DIR,"training_history.png"),
-#     dpi=150
-# )
+ plt.savefig(
+    os.path.join(MODEL_DIR,"training_history.png"),
+     dpi=150
+ )
 
 plt.close()
 
@@ -287,10 +287,10 @@ plt.ylabel("Actual")
 
 plt.tight_layout()
 
-# plt.savefig(
-#     os.path.join(MODEL_DIR, "confusion_matrix.png"),
-#     dpi=150,
-# )
+plt.savefig(
+   os.path.join(MODEL_DIR, "confusion_matrix.png"),
+     dpi=150,
+)
 
 plt.close()
 
