@@ -37,7 +37,7 @@ tinea_candidiasis_project/
 ├── .gitignore
 │
 ├── model/
-│   ├── skin_classifier.keras
+│   ├── tinea_candidiasis_skin_classifier.keras
 │   ├── labels.json
 │
 └── data/
