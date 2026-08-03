@@ -170,7 +170,7 @@ if uploaded_file:
 
         st.caption(
             "This application is intended for educational purposes only and is not a substitute for professional medical diagnosis."
-        ).")
+        )
         st.stop()
 
     st.image(image, caption="Uploaded image", use_container_width=True)
