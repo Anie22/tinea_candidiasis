@@ -7,34 +7,170 @@ import tensorflow as tf
 from PIL import Image
 from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 
+# -----------------------------
+# Configuration
+# -----------------------------
 MODEL_PATH = "model/tinea_candidiasis_skin_classifier.keras"
 LABELS_PATH = "model/labels.json"
+
 BLANK_IMAGE_STD_CUTOFF = 5.0
 
-st.set_page_config(page_title="Tinea vs Candidiasis Classifier", layout="centered")
+st.set_page_config(
+    page_title="Tinea vs Candidiasis Classifier",
+    page_icon="🩺",
+    layout="centered",
+)
 
 
+# -----------------------------
+# Load model
+# -----------------------------
 @st.cache_resource
 def load_model():
     if not os.path.exists(MODEL_PATH):
         return None, None
 
     model = tf.keras.models.load_model(MODEL_PATH)
-    with open(LABELS_PATH) as f:
+
+    with open(LABELS_PATH, "r") as f:
         meta = json.load(f)
 
     return model, meta
 
 
+# -----------------------------
+# Image preprocessing
+# -----------------------------
 def preprocess(image, img_size):
-    image = image.convert("RGB").resize(img_size)
+    image = image.convert("RGB")
+    image = image.resize(tuple(img_size))
+
     array = np.array(image, dtype=np.float32)
     array = np.expand_dims(array, axis=0)
+
     return preprocess_input(array)
 
 
+# -----------------------------
+# Check if uploaded image is valid
+# -----------------------------
 def is_valid_photo(image):
-    # rejects blank, corrupted, or solid-color uploads before they hit the model
+    gray = image.convert("L").resize((64, 64))
+    pixels = np.array(gray, dtype=np.float32)
+
+    return pixels.std() > BLANK_IMAGE_STD_CUTOFF
+
+
+# -----------------------------
+# Load model
+# -----------------------------
+model, meta = load_model()
+
+st.title("🩺 Tinea vs Candidiasis Classifier")
+st.caption("AI-powered skin disease classification")
+
+if model is None:
+    st.error("Model not found.")
+
+    st.info(
+        "Place your trained model at:\n\n"
+        "`model/tinea_candidiasis_skin_classifier.keras`"
+    )
+
+    st.stop()
+
+class_names = meta["class_names"]
+img_size = tuple(meta["img_size"])
+threshold = meta["confidence_threshold"]
+
+
+st.write(
+    """
+Upload a close-up image of the affected skin.
+
+Click **Analyze Image** to classify it as:
+
+- Tinea
+- Candidiasis
+- Neither
+"""
+)
+
+uploaded_file = st.file_uploader(
+    "Choose an image",
+    type=["jpg", "jpeg", "png"],
+)
+
+if uploaded_file:
+
+    try:
+        image = Image.open(uploaded_file)
+
+    except Exception:
+        st.error("Unable to read image.")
+        st.stop()
+
+    # Streamlit 1.37 compatibility
+    st.image(image, caption="Uploaded Image", use_column_width=True)
+
+    if st.button("🔍 Analyze Image", type="primary"):
+
+        if not is_valid_photo(image):
+            st.error("Invalid or blank image uploaded.")
+            st.stop()
+
+        with st.spinner("Analyzing image..."):
+
+            prediction = model.predict(
+                preprocess(image, img_size),
+                verbose=0,
+            )[0]
+
+        top_index = int(np.argmax(prediction))
+        confidence = float(prediction[top_index])
+
+        predicted_label = class_names[top_index]
+
+        st.divider()
+
+        st.subheader("Prediction Result")
+
+        if confidence < threshold:
+
+            st.warning("Prediction: Neither Tinea nor Candidiasis")
+
+        elif predicted_label.lower() == "tinea":
+
+            st.success("Prediction: Tinea")
+
+        elif predicted_label.lower() == "candidiasis":
+
+            st.success("Prediction: Candidiasis")
+
+        else:
+
+            st.info("Prediction: Unknown")
+
+        st.metric(
+            label="Highest Confidence",
+            value=f"{confidence*100:.2f}%"
+        )
+
+        st.divider()
+
+        st.subheader("Confidence Scores")
+
+        for label, score in zip(class_names, prediction):
+
+            st.write(f"**{label.title()}**")
+
+            st.progress(float(score))
+
+            st.write(f"{score*100:.2f}%")
+
+        st.caption(
+            "This application is intended for educational purposes only and is not a substitute for professional medical diagnosis."
+    )    # rejects blank, corrupted, or solid-color uploads before they hit the model
     grayscale = image.convert("L").resize((64, 64))
     pixels = np.array(grayscale, dtype=np.float32)
     return pixels.std() > BLANK_IMAGE_STD_CUTOFF
