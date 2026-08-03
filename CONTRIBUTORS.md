@@ -1,6 +1,9 @@
 ## Contributors ##
 
 Group: CE13
+
+-----
+
 **Task: Tinea vs Candidiasis**
 
 | Name | Registration Number | GitHub Username | Role |
