@@ -1,6 +1,7 @@
 # Tinea vs Candidiasis Classifier
 
 This app using AI(Artificial intelligence) to classify skin images of diseases as either **Tinea** or **Candidiasis**. It was develop using Tensorflow/Keras and deployed using streamlit
+
 ---
 
 ## Features
@@ -22,30 +23,6 @@ This app using AI(Artificial intelligence) to classify skin images of diseases a
 * Pillow
 * scikit-learn
 * Matplotlib
-
----
-
-## Project Structure
-
-```text
-tinea_candidiasis_project/
-│
-├── app.py
-├── train.py
-├── requirements.txt
-├── README.md
-├── .gitignore
-│
-├── model/
-│   ├── tinea_candidiasis_skin_classifier.keras
-│   ├── labels.json
-│
-└── data/
-    ├── tinea/
-    └── candidiasis/
-```
-
-> **Note:** The `data/` directory is used only for model training and should not be committed to GitHub.
 
 ---
 
@@ -175,6 +152,12 @@ Include:
 * model/
 ---
 
+# Contributors
+
+see [License](https://github.com/Anie22/tinea_candidiasis/blob/master/CONTRIBUTORS.md)
+
+---
+
 # Future Improvements
 
 * Increase the dataset size for improved accuracy.
@@ -184,4 +167,4 @@ Include:
 
 # License
 
-This project was developed for academic purposes as part of the **GET 324 Mini Project**.
+see [License](https://github.com/Anie22/tinea_candidiasis/blob/master/LICENSE)
