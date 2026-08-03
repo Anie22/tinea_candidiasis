@@ -156,7 +156,7 @@ Include:
 
 see [License](https://github.com/Anie22/tinea_candidiasis/blob/master/CONTRIBUTORS.md)
 
----
+---git 
 
 # Future Improvements
 
